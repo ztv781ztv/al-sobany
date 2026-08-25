@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محول الأحرف - ER-180U</title>
+<style>
+:root{--primary:#047857;--primary2:#065f46;--bg:#f3f4f6;--dark:#1f2937;--line:#d1d5db}
+*{box-sizing:border-box}body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--dark);margin:0}
+header{background:var(--primary);color:#fff;padding:16px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+header img{height:42px;background:#fff;padding:4px;border-radius:8px}
+.container{max-width:900px;margin:20px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+label{font-weight:700;display:block;margin:10px 0 6px}
+textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;min-height:90px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{background:var(--primary);color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer}
+.btn:hover{background:var(--primary2)}.btn-danger{background:#ef4444}.btn2{background:#e5e7eb;color:#1f2937}
+.screen{background:#ecfdf5;border:2px solid #a7f3d0;border-radius:8px;padding:14px;min-height:60px;font-family:Consolas,monospace;font-size:17px;word-break:break-all}
+.grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.code-box{background:#fff;border:2px solid var(--primary);border-radius:8px;padding:7px;min-width:62px;text-align:center}
+.code-box .code{font-weight:800;color:var(--primary)}.code-box .char{font-size:12px;color:#666}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}th,td{border:1px solid #ddd;padding:7px;text-align:center}th{background:var(--primary);color:#fff}
+.cat{background:#f3f4f6;font-weight:800;text-align:right;padding:8px;border:1px solid #ddd}
+.muted{color:#6b7280;font-size:12px}
+@media print{.no-print{display:none!important}}
+</style>
+</head>
+<body>
+<header>
+<img src="sob.png" onerror="this.style.display='none'" alt="logo">
+<div><h1 style="margin:0">محول الأحرف إلى أرقام - ER-180U</h1><p style="margin:4px 0 0;opacity:.9;font-size:12px">البيانات مطابقة 100% للجدول المرفق</p></div>
+</header>
+<div class="container">
+<label>اكتب النص</label>
+<textarea id="txt" placeholder="مثال: سوبر ماركت"></textarea>
+<div class="row no-print">
+<button class="btn" onclick="convert()">تحويل</button>
+<button class="btn btn2" onclick="copyOut()">نسخ</button>
+<button class="btn btn-danger" onclick="clearAll()">مسح</button>
+<button class="btn" style="background:#1f2937" onclick="window.print()">طباعة / PDF</button>
+</div>
+<div class="muted">كل كود 3 خانات</div>
+<label>النتيجة</label>
+<div class="screen" id="out">—</div>
+<div class="grid" id="grid"></div>
+<div id="msg" class="muted"></div>
+
+<details open style="margin-top:16px">
+<summary style="cursor:pointer;font-weight:700">📋 الجدول الكامل من الصورة</summary>
+
+<div class="cat">🔤 الأحرف الأساسية</div>
+<table><tr><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th></tr>
+<tr><td>123</td><td>ط</td><td>124</td><td>ظ</td><td>125</td><td>ع</td><td>126</td><td>غ</td></tr>
+<tr><td>127</td><td>ف</td><td>128</td><td>ق</td><td>129</td><td>ك</td><td>130</td><td>ل</td></tr>
+<tr><td>131</td><td>م</td><td>132</td><td>ن</td><td>133</td><td>ة</td><td>134</td><td>و</td></tr>
+<tr><td>135</td><td>ي</td><td>136</td><td>لا</td><td>137</td><td>ب</td><td>138</td><td>ت</td></tr>
+<tr><td>139</td><td>ث</td><td>140</td><td>ج</td><td>141</td><td>ح</td><td>142</td><td>خ</td></tr>
+<tr><td>143</td><td>ا</td><td>144</td><td>ء</td><td>145</td><td>-</td><td>147</td><td>س</td></tr>
+<tr><td>148</td><td>ش</td><td>149</td><td>ص</td><td>150</td><td>ض</td><td>151</td><td>لأ</td></tr>
+<tr><td>152</td><td>لآ</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<div class="cat">🔠 الأشكال الأخرى</div>
+<table><tr><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th></tr>
+<tr><td>153</td><td>ع</td><td>154</td><td>غ</td><td>155</td><td>ف</td><td>156</td><td>ق</td></tr>
+<tr><td>157</td><td>ك</td><td>158</td><td>ل</td><td>159</td><td>م</td><td>160</td><td>ن</td></tr>
+<tr><td>161</td><td>هـ</td><td>162</td><td>و</td><td>163</td><td>ي</td><td>164</td><td>ذ</td></tr>
+<tr><td>165</td><td>ع</td><td>166</td><td>غ</td><td>167</td><td>ه</td><td>168</td><td>هـ</td></tr>
+<tr><td>169</td><td>ي</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<div class="cat">🔢 الأرقام</div>
+<table><tr><th>الكود</th><th>الرقم</th><th>الكود</th><th>الرقم</th><th>الكود</th><th>الرقم</th><th>الكود</th><th>الرقم</th></tr>
+<tr><td>048</td><td>0</td><td>049</td><td>1</td><td>050</td><td>2</td><td>051</td><td>3</td></tr>
+<tr><td>052</td><td>4</td><td>053</td><td>5</td><td>054</td><td>6</td><td>055</td><td>7</td></tr>
+<tr><td>056</td><td>8</td><td>057</td><td>9</td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<div class="cat">📝 أكواد إضافية ظاهرة</div>
+<table><tr><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th><th>الكود</th><th>الرمز</th></tr>
+<tr><td>017</td><td>أ</td><td>018</td><td>ب</td><td>019</td><td>ت</td><td>020</td><td>ث</td></tr>
+<tr><td>021</td><td>ج</td><td>022</td><td>ح</td><td>023</td><td>خ</td><td>024</td><td>د</td></tr>
+<tr><td>025</td><td>ذ</td><td>026</td><td>ر</td><td>027</td><td>ز</td><td>028</td><td>س</td></tr>
+<tr><td>029</td><td>ش</td><td>030</td><td>ص</td><td>031</td><td>ض</td><td>032</td><td>فراغ</td></tr>
+</table>
+
+<div class="cat">🔤 الإنجليزي ASCII</div>
+<table><tr><th>الكود</th><th>الحرف</th><th>الكود</th><th>الحرف</th><th>الكود</th><th>الحرف</th><th>الكود</th><th>الحرف</th></tr>
+<tr><td>065</td><td>A</td><td>066</td><td>B</td><td>067</td><td>C</td><td>068</td><td>D</td></tr>
+<tr><td>069</td><td>E</td><td>070</td><td>F</td><td>071</td><td>G</td><td>072</td><td>H</td></tr>
+<tr><td>073</td><td>I</td><td>074</td><td>J</td><td>075</td><td>K</td><td>076</td><td>L</td></tr>
+<tr><td>077</td><td>M</td><td>078</td><td>N</td><td>079</td><td>O</td><td>080</td><td>P</td></tr>
+<tr><td>081</td><td>Q</td><td>082</td><td>R</td><td>083</td><td>S</td><td>084</td><td>T</td></tr>
+<tr><td>085</td><td>U</td><td>086</td><td>V</td><td>087</td><td>W</td><td>088</td><td>X</td></tr>
+<tr><td>089</td><td>Y</td><td>090</td><td>Z</td><td></td><td></td><td></td><td></td></tr>
+</table>
+</details>
+</div>
+<script>
+const primary={
+'ط':'123','ظ':'124','ع':'125','غ':'126','ف':'127','ق':'128','ك':'129','ل':'130','م':'131','ن':'132','ة':'133','و':'134','ي':'135','لا':'136','ب':'137','ت':'138','ث':'139','ج':'140','ح':'141','خ':'142','ا':'143','ء':'144','-':'145','س':'147','ش':'148','ص':'149','ض':'150','لأ':'151','لآ':'152',
+'0':'048','1':'049','2':'050','3':'051','4':'052','5':'053','6':'054','7':'055','8':'056','9':'057',
+'أ':'017','د':'024','ذ':'025','ر':'026','ز':'027','ه':'167','هـ':'161',' ':'032','A':'065','B':'066','C':'067','D':'068','E':'069','F':'070','G':'071','H':'072','I':'073','J':'074','K':'075','L':'076','M':'077','N':'078','O':'079','P':'080','Q':'081','R':'082','S':'083','T':'084','U':'085','V':'086','W':'087','X':'088','Y':'089','Z':'090','a':'097','b':'098','c':'099','d':'100','e':'101','f':'102','g':'103','h':'104','i':'105','j':'106','k':'107','l':'108','m':'109','n':'110','o':'111','p':'112','q':'113','r':'114','s':'115','t':'116','u':'117','v':'118','w':'119','x':'120','y':'121','z':'122'
+};
+// variants for decoding (all codes map to char)
+const variant={
+'153':'ع','165':'ع','154':'غ','166':'غ','155':'ف','156':'ق','157':'ك','158':'ل','159':'م','160':'ن','161':'هـ','162':'و','163':'ي','164':'ذ','168':'هـ','169':'ي',
+'018':'ب','019':'ت','020':'ث','021':'ج','022':'ح','023':'خ','028':'س','029':'ش','030':'ص','031':'ض','032':' '
+};
+// merge for decoding
+const decodeMap={};
+for(let k in primary) decodeMap[primary[k]]=k;
+for(let k in variant) decodeMap[k]=variant[k];
+
+function convert(){
+  let s=document.getElementById('txt').value;
+  let grid=document.getElementById('grid'), out=document.getElementById('out'), msg=document.getElementById('msg');
+  grid.innerHTML=''; if(!s.trim()){out.textContent='—';msg.textContent='';return;}
+  let codes=[]; let miss=[];
+  for(let i=0;i<s.length;){
+    let ch=s[i];
+    if(ch==='ل' && s[i+1]==='ا'){ // handle لا variants
+      let two=s.substring(i,i+2);
+      // check for لأ / لآ ? need to look ahead char
+      // For simplicity, check if next char is 'ا' with hamza? but input uses ا only
+      // We'll treat "لا" as 136, "لأ" needs 'أ' after ل
+      if(s[i+1]==='ا'){ ch='لا'; i++; }
+    }
+    // handle لأ and لآ - need to check if s[i]=='ل' and next is 'أ' or 'آ'
+    if(s[i]==='ل' && (s[i+1]==='أ' || s[i+1]==='آ')){
+      let combo=s[i]+s[i+1];
+      if(primary[combo]){ ch=combo; i++; }
+    }
+    let code=primary[ch];
+    if(code){ codes.push(code); grid.innerHTML+=`<div class="code-box"><div class="code">${code}</div><div class="char">${ch===' ' ? '(فراغ)' : ch}</div></div>`; }
+    else{ codes.push('???'); miss.push(ch); grid.innerHTML+=`<div class="code-box" style="border-color:#ef4444"><div class="code">???</div><div class="char">${ch}</div></div>`; }
+    i++;
+  }
+  out.textContent=codes.join(' ');
+  msg.textContent= miss.length ? '⚠ غير موجود: '+[...new Set(miss)].join(' ، ') : '✓ تم';
+}
+function copyOut(){ navigator.clipboard.writeText(document.getElementById('out').textContent); }
+function clearAll(){ document.getElementById('txt').value=''; document.getElementById('grid').innerHTML=''; document.getElementById('out').textContent='—'; document.getElementById('msg').textContent=''; }
+document.getElementById('txt').addEventListener('input', convert);
+</script>
+</body>
+</html>
